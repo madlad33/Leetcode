@@ -6,27 +6,17 @@
 #         self.right = right
 class Solution:
     def sumEvenGrandparent(self, root: TreeNode) -> int:
-        self.arr = []
         self.s = 0
-        def traverse(root):
+    
+        def traverse(root,parent,grandparent):
             if root is None:
                 return
-            if root.val % 2 == 0:
-                if root.left:
-                    if root.left.left:
-                        self.s += root.left.left.val
-                    if root.left.right:
-                        self.s += root.left.right.val
-                if root.right:
-                    if root.right.right:
-                        self.s += root.right.right.val
-                    if root.right.left:
-                        self.s += root.right.left.val
             
+            if grandparent is not None and grandparent.val % 2 == 0:
+                self.s += root.val
                 
-            traverse(root.left)
-            traverse(root.right)
-        traverse(root)
+            traverse(root.left,root,parent)
+            traverse(root.right,root,parent)
+        traverse(root,None,None)
         return self.s
-
        
