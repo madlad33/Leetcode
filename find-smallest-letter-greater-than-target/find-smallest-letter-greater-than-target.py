@@ -3,14 +3,23 @@ class Solution:
         ascii_val = list(map(ord,letters))
         target_ord = ord(target)
         min_val = float('inf')
-        for i in ascii_val:
-            if i > target_ord:
-                min_val = min(min_val,i)
-        
-        if min_val == float('inf'):
-            return str(chr(ascii_val[0]))
+        start  = 0
+        end =  len(ascii_val) - 1
+        result = 0
+        while start <= end:
+            mid = (start + end) // 2
+            if ascii_val[mid] == target_ord + 1:
                 
-        return str(chr(min_val))
+                return str(chr(ascii_val[mid]))
+            elif ascii_val[mid] <= target_ord:
+                start = mid + 1
+            else:
+                result = mid
+                end = mid - 1
+                
+                
+        return str(chr(ascii_val[result]))
+            
 
             
             
